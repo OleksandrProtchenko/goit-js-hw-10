@@ -3,6 +3,7 @@ import iziToast from 'izitoast';
 
 import 'izitoast/dist/css/iziToast.min.css';
 import 'flatpickr/dist/flatpickr.min.css';
+import iconError from '../img/toast/Group.png';
 
 const inp = document.querySelector('#datetime-picker');
 const btnStart = document.querySelector('[data-start]');
@@ -28,7 +29,7 @@ const optionsToast = {
   close: true,
   timeout: 2000,
   pauseOnHover: false,
-  iconUrl: '../img/toast/Group.png',
+  iconUrl: iconError,
   backgroundColor: '#ef4040',
   progressBarColor: '#b51b1b',
   messageColor: '#ffffff',
