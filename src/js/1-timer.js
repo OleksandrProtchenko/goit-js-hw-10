@@ -51,13 +51,13 @@ function onStartTimer(event) {
 
   btnStart.disabled = true;
   inp.disabled = true;
-
   timerID = setInterval(() => {
     const diffDate = date.getTime() - Date.now();
 
     if (diffDate <= 0) {
       updateTimer(convertMs(0));
       clearInterval(timerID);
+      inp.disabled = false;
       return;
     }
 
@@ -77,9 +77,15 @@ function checkDate(date) {
 }
 
 function updateTimer(date) {
+  const normalizeDate = Object.entries(date);
+  console.log(normalizeDate);
   for (const key in date) {
     const el = document.querySelector(`[data-${key}]`);
-    if (el) el.textContent = date[key];
+    if (date[key] > 0) {
+      el.textContent = date[key];
+    } else if (date[key] <= 1) {
+      el.textContent = '00';
+    }
   }
 }
 
