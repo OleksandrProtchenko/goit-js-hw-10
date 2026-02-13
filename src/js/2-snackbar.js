@@ -1,6 +1,8 @@
 import iziToast from 'izitoast';
 
 import 'izitoast/dist/css/iziToast.min.css';
+import iconError from '../img/toast/Group.png';
+import iconValid from '../img/toast/Group2.png';
 
 const form = document.querySelector('.form');
 let delay = 0;
@@ -12,7 +14,7 @@ const optionsToastError = {
   close: true,
   timeout: 2000,
   pauseOnHover: false,
-  iconUrl: './img/toast/Group.png',
+  iconUrl: iconError,
   backgroundColor: '#ef4040',
   progressBarColor: '#b51b1b',
   messageColor: '#ffffff',
@@ -26,7 +28,7 @@ const optionsToastValid = {
   close: true,
   timeout: 2000,
   pauseOnHover: false,
-  iconUrl: 'img/toast/Group2.png',
+  iconUrl: iconValid,
   backgroundColor: '#59a10d',
   progressBarColor: '#59a10d',
   messageColor: '#ffffff',
