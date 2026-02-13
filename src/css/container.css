@@ -17,3 +17,26 @@
     max-width: 1200px;
   }
 }
+
+.container.main-container {
+  display: flex;
+  gap: 50px;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.main-link {
+  text-transform: uppercase;
+  font-size: 32px;
+  border: 1px solid #808080;
+  padding: 10px 30px;
+  border-radius: 8px;
+  background-color: #4e75ff;
+  color: #fff;
+  transition: 0.25s;
+
+  &:hover {
+    background-color: #cfcfcf;
+    color: #989898;
+  }
+}
