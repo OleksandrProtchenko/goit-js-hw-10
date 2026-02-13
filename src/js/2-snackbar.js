@@ -5,36 +5,7 @@ import iconError from '../img/toast/Group.png';
 import iconValid from '../img/toast/Group2.png';
 
 const form = document.querySelector('.form');
-let delay = 0;
-
-const optionsToastError = {
-  title: 'Error',
-  message: `Rejected promise in ${delay}ms`,
-  position: 'topRight',
-  close: true,
-  timeout: 2000,
-  pauseOnHover: false,
-  iconUrl: iconError,
-  backgroundColor: '#ef4040',
-  progressBarColor: '#b51b1b',
-  messageColor: '#ffffff',
-  titleColor: '#ffffff',
-  icon: null,
-};
-const optionsToastValid = {
-  title: 'OK',
-  message: `Fulfilled promise in ${delay}ms`,
-  position: 'topRight',
-  close: true,
-  timeout: 2000,
-  pauseOnHover: false,
-  iconUrl: iconValid,
-  backgroundColor: '#59a10d',
-  progressBarColor: '#59a10d',
-  messageColor: '#ffffff',
-  titleColor: '#ffffff',
-  icon: null,
-};
+let delay = null;
 
 form.addEventListener('submit', onClickStartNotification);
 
@@ -42,6 +13,36 @@ function onClickStartNotification(event) {
   event.preventDefault();
   const isCheckedValue = [...form.elements].filter(el => el.checked)[0].value;
   delay = +document.querySelector('input[type="number"]').value;
+
+  const optionsToastError = {
+    title: 'Error',
+    message: `Rejected promise in ${delay}ms`,
+    position: 'topRight',
+    close: true,
+    timeout: 2000,
+    pauseOnHover: false,
+    iconUrl: iconError,
+    backgroundColor: '#ef4040',
+    progressBarColor: '#b51b1b',
+    messageColor: '#ffffff',
+    titleColor: '#ffffff',
+    icon: null,
+  };
+
+  const optionsToastValid = {
+    title: 'OK',
+    message: `Fulfilled promise in ${delay}ms`,
+    position: 'topRight',
+    close: true,
+    timeout: 2000,
+    pauseOnHover: false,
+    iconUrl: iconValid,
+    backgroundColor: '#59a10d',
+    progressBarColor: '#59a10d',
+    messageColor: '#ffffff',
+    titleColor: '#ffffff',
+    icon: null,
+  };
 
   setTimeout(() => {
     new Promise((resolve, reject) => {
