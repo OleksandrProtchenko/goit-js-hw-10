@@ -7,7 +7,10 @@ import iconError from '../img/toast/Group.png';
 
 const inp = document.querySelector('#datetime-picker');
 const btnStart = document.querySelector('[data-start]');
+const timerDisplay = document.querySelectorAll('.value');
+
 let userSelectedDate = null;
+
 btnStart.disabled = true;
 
 const options = {
@@ -17,8 +20,7 @@ const options = {
   minuteIncrement: 1,
 
   onClose(selectedDates) {
-    userSelectedDate = selectedDates[0];
-    checkDate(userSelectedDate);
+    userSelectedDate = checkDate(selectedDates[0]);
   },
 };
 
@@ -43,32 +45,30 @@ btnStart.addEventListener('click', onStartTimer);
 
 function onStartTimer(event) {
   userSelectedDate = fp.selectedDates[0];
-  const date = userSelectedDate;
-
+  const date = userSelectedDate.getTime();
+  const diff = convertMs(date - Date.now());
   let timerID = null;
 
-  updateTimer(convertMs(date.getTime() - Date.now()));
-
+  updateTimer(diff);
   btnStart.disabled = true;
   inp.disabled = true;
-  timerID = setInterval(() => {
-    const diffDate = date.getTime() - Date.now();
 
-    if (diffDate <= 0) {
+  timerID = setInterval(() => {
+    const diff = date - Date.now();
+    const newDate = convertMs(diff);
+    if (diff <= 0) {
       updateTimer(convertMs(0));
       clearInterval(timerID);
       inp.disabled = false;
       return;
     }
-
-    const formattedDate = convertMs(diffDate);
-
-    updateTimer(formattedDate);
+    updateTimer(newDate);
   }, 1000);
 }
 
 function checkDate(date) {
-  if (date < Date.now()) {
+  const diff = date - Date.now();
+  if (diff < 0) {
     btnStart.disabled = true;
     iziToast.error(optionsToast);
     return;
@@ -77,16 +77,20 @@ function checkDate(date) {
 }
 
 function updateTimer(date) {
-  const normalizeDate = Object.entries(date);
-  console.log(normalizeDate);
-  for (const key in date) {
-    const el = document.querySelector(`[data-${key}]`);
-    if (date[key] > 0) {
-      el.textContent = date[key];
-    } else if (date[key] <= 1) {
-      el.textContent = '00';
-    }
-  }
+  const { days, hours, minutes, seconds } = date;
+  const timerItems = [
+    addLeadingZero(days),
+    addLeadingZero(hours),
+    addLeadingZero(minutes),
+    addLeadingZero(seconds),
+  ];
+  timerItems.forEach((item, idx) => {
+    timerDisplay[idx].textContent = item;
+  });
+}
+
+function addLeadingZero(value) {
+  return `${value}`.padStart(2, 0);
 }
 
 function convertMs(ms) {

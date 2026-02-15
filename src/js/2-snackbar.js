@@ -47,17 +47,23 @@ function onClickStartNotification(event) {
   setTimeout(() => {
     new Promise((resolve, reject) => {
       if (isCheckedValue === 'fulfilled') {
-        resolve();
+        resolve(delay);
       }
-      reject();
+      reject(delay);
     })
-      .then(str => {
+      .then(delay => {
         console.log(`✅ Fulfilled promise in ${delay}ms`);
-        return iziToast.success(optionsToastValid);
+        return iziToast.success({
+          ...optionsToastValid,
+          message: `✅ Fulfilled promise in ${delay}ms`,
+        });
       })
-      .catch(error => {
+      .catch(delay => {
         console.log(`❌ Rejected promise in ${delay}ms`);
-        return iziToast.error(optionsToastError);
+        return iziToast.error({
+          ...optionsToastError,
+          message: `❌ Rejected promise in ${delay}ms`,
+        });
       });
   }, delay);
   form.reset();
